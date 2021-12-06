@@ -13,7 +13,7 @@ struct node {
     node* right=NULL;//0
 };
 
-
+//Подсчёт вхождений
 vector<pair<int,char>> countEntry(string s) {
     map<char, int> m;//Key, count
     vector<pair<int, char>> v;//Count, key
@@ -31,33 +31,34 @@ vector<pair<int,char>> countEntry(string s) {
 
 node* makeHuffmanTree(vector<pair<int,char>> v) {
     vector<node*> st;
-    for (auto& i : v) {
+    for (auto& i : v) {//Создаём как бы стек на базе исходного вектора
         node* tmp = new node;
         tmp->n = i.first;
         tmp->c = i.second;
         st.push_back(tmp);
     }
-    while (!st.empty()) {
-        node* right = st.back();
+    while (!st.empty()) {//Пока в стеке есть элементы
+        node* right = st.back();//Берем самый правый
         st.pop_back();
-        if (st.empty()) {
+        if (st.empty()) {//если мы взяли последний элемент то дерево готово
             return right;
         }
         else {
-            node* tmp = new node();
-            node* left = st.back();
+            node* tmp = new node();//Создаём новый узел
+            node* left = st.back();//Берем левый элемент
             st.pop_back();
-            tmp->n = left->n + right->n;
-            tmp->left = left;
+            tmp->n = left->n + right->n;//Задаём вес узла
+            tmp->left = left;//Потомки
             tmp->right = right;
             
-            for (int i = 0; i< st.size(); i++) {
-                if (st[i]->n < tmp->n) {
+            
+            for (int i = 0; i< st.size(); i++) {//Вставляем в массив сохраняя сортировку
+                if (st[i]->n < tmp->n) {//Если вставляем в середину
                     st.insert(st.begin()+i, tmp);
-                    goto x;
+                    goto x;//Переносит вперед не давая элементу продублироваться
                 }
             }
-            st.push_back(tmp);
+            st.push_back(tmp);//Строчка выполняется только в случае вставки в самый конец, иначе работает goto
         x:;
         }
     }
