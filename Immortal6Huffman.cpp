@@ -24,7 +24,7 @@ vector<pair<int,char>> countEntry(string s) {
     for (auto& i : m) {
         v.push_back(std::make_pair(i.second, i.first));
     }
-    sort(v.begin(),v.end());
+    sort(v.rbegin(),v.rend());
     return v;
 }
 
