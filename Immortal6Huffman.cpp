@@ -119,6 +119,10 @@ int main()
     string s = "aaaaaaaaaabbbbbbbbccccccdddddeeeefff";
     cin >> s;
     vector<pair<int,char>> st = countEntry(s);
+    cout << "Char count table:\n";
+    for (auto& i : st) {
+        cout << i.first << ' ' << i.second << '\n';
+    }
     node* tree = makeHuffmanTree(st);
     traversal(tree, 0);
     makeMap(tree, "");
